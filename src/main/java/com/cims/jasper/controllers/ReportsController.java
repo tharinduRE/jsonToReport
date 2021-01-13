@@ -15,6 +15,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.PostConstruct;
@@ -48,19 +49,20 @@ public class ReportsController {
     }
 
     @PostMapping("/report")
-    public ResponseEntity<ReportVM> createReport(@RequestBody ReportDTO reportDTO) throws Exception {
+    public ResponseEntity<ReportVM> createReport(@RequestBody ReportDTO reportDTO,
+                                                 @RequestParam("name") String name) throws Exception {
 
-        log.info("Report microservice generating report for {}", reportDTO.getName());
+        log.info("Report microservice generating report for {}", name);
         ObjectMapper mapper = new ObjectMapper();
 
-        Class<?> model = Class.forName("com.cims.jasper.model." + StringUtils.capitalize(reportDTO.getName()));
+        Class<?> model = Class.forName("com.cims.jasper.model." + StringUtils.capitalize(name));
         List<?> list = reportDTO.getPayload()
                 .stream().map(obj -> mapper.convertValue(obj, model)).collect(Collectors.toList());
 
-        InputStream jasperStream = new ClassPathResource("report/" + reportDTO.getName() + ".jasper").getInputStream();
+        InputStream jasperStream = new ClassPathResource("report/" + name + ".jasper").getInputStream();
 
         ReportVM report = new ReportVM(
-                generateAndSaveReport(list, reportDTO.getTitle(), jasperStream));
+                generateAndSaveReport(list,reportDTO.getTitle(), jasperStream));
         return ResponseEntity.ok().body(report);
 
     }

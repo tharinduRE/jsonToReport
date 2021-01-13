@@ -6,21 +6,10 @@ import java.util.List;
 public class ReportDTO {
 
     @NotNull
-    private String name;
-
-    @NotNull
     private String title;
 
     @NotNull
     private List<Object> payload;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getTitle() {
         return title;
