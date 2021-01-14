@@ -48,7 +48,7 @@ public class ReportsController {
         }
     }
 
-    @PostMapping("/report")
+    @PostMapping("/reports")
     public ResponseEntity<ReportVM> createReport(@RequestBody ReportDTO reportDTO,
                                                  @RequestParam("name") String name) throws Exception {
 
