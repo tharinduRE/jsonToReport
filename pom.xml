@@ -40,6 +40,11 @@
             <artifactId>slf4j-api</artifactId>
             <version>1.7.30</version>
         </dependency>
+        <dependency>
+            <groupId>com.google.cloud.tools</groupId>
+            <artifactId>jib-maven-plugin</artifactId>
+            <version>2.7.1</version>
+        </dependency>
 
 
         <dependency>
@@ -77,6 +82,23 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>2.7.1</version>
+                <configuration>
+                    <from>
+                        <image>docker://jasper-base-image:latest</image>
+                    </from>
+                    <to>
+                        <image>reports:1.0.0</image>
+                    </to>
+                    <container>
+                        <ports>8080</ports>
+                        <creationTime>USE_CURRENT_TIMESTAMP</creationTime>
+                    </container>
+                </configuration>
             </plugin>
         </plugins>
     </build>

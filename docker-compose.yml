@@ -4,10 +4,10 @@ services:
   jasper:
     hostname: jasper
     container_name: jasper
-    image: reports:latest
+    image: reports:1.0.0
     volumes:
       - ./data:/data
     expose:
-      - 8081
+      - 8080
     ports:
-      - "8081:8081"
+      - "8080:8080"
